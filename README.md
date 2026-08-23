@@ -1,5 +1,7 @@
 # Strategic Classification and Behavioural Response
 
+**Project period: January 2026 – April 2026**
+
 [![tests](https://github.com/MUmairSarwar/strategic-classification-toy/actions/workflows/tests.yml/badge.svg)](https://github.com/MUmairSarwar/strategic-classification-toy/actions/workflows/tests.yml)
 
 A small, reproducible experiment showing why predictive models cannot always treat people as passive data points. When a scoring rule affects access to an outcome, people may change features that the model rewards.
@@ -27,9 +29,11 @@ This is a controlled mathematical demonstration, not a claim about a specific re
 - Mean change among manipulators
 - Sensitivity of manipulation and accuracy to the assumed cost
 
-Measured outputs are committed in [`reports/metrics.json`](reports/metrics.json). Run the script to reproduce them:
+Measured outputs are committed in [`reports/metrics.json`](reports/metrics.json).
 
 At the default cost, **50.2%** of test individuals changed `x1`. The positive-decision rate increased from **46.1% to 96.3%**, while accuracy fell from **70.4% to 50.6%** and ROC AUC from **0.800 to 0.773**. These are simulated results under the stated assumptions.
+
+## Reproduce
 
 ```bash
 python -m venv .venv
@@ -43,13 +47,19 @@ python -m src.simulate
 
 Credit, admissions, hiring and platform-ranking models can change the behaviour they measure. A model that performs well on historical data may behave differently after its decision rule becomes actionable. Useful follow-up work would retrain against anticipated responses, add heterogeneous costs and evaluate fairness across groups.
 
+## Technologies
+
+Python, NumPy, scikit-learn, reproducible simulation and data visualisation.
+
 ## Other selected projects
 
 - [Rhine-Main Heat Risk Forecasting](https://github.com/MUmairSarwar/germany-heat-risk-forecasting)
+- [Robust Federated Learning](https://github.com/MUmairSarwar/robust-federated-learning-ml-security)
 - [Retail Customer & Operations Analytics](https://github.com/MUmairSarwar/retail-customer-analytics)
 - [Telecom Customer Churn Prediction](https://github.com/MUmairSarwar/customer-churn-prediction)
-- [Robust Federated Learning](https://github.com/MUmairSarwar/robust-federated-learning-ml-security)
 
 ## Author
 
-Muhammad Umair Sarwar - M.Sc. Mathematics student (Mathematics in Data Science), TU Darmstadt.
+**Muhammad Umair Sarwar**  
+Incoming M.Sc. Mathematics – Mathematics in Data Science student at TU Darmstadt, starting WS 2026/27.  
+Available from 1 September 2026 for HiWi / Student Research Assistant roles, up to 20 hours/week.
