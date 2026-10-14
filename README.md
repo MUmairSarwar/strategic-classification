@@ -61,5 +61,5 @@ Python, NumPy, scikit-learn, reproducible simulation and data visualisation.
 ## Author
 
 **Muhammad Umair Sarwar**  
-Incoming M.Sc. Mathematics – Mathematics in Data Science student at TU Darmstadt, starting WS 2026/27.  
-Available from 1 September 2026 for HiWi / Student Research Assistant roles, up to 20 hours/week.
+M.Sc. Mathematics student (Mathematics in Data Science), TU Darmstadt.  
+Open to PhD positions and full-time roles.
