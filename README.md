@@ -2,7 +2,7 @@
 
 **Project period: January 2026 – April 2026**
 
-[![tests](https://github.com/MUmairSarwar/strategic-classification-toy/actions/workflows/tests.yml/badge.svg)](https://github.com/MUmairSarwar/strategic-classification-toy/actions/workflows/tests.yml)
+[![tests](https://github.com/MUmairSarwar/strategic-classification/actions/workflows/tests.yml/badge.svg)](https://github.com/MUmairSarwar/strategic-classification/actions/workflows/tests.yml)
 
 A small, reproducible experiment showing why predictive models cannot always treat people as passive data points. When a scoring rule affects access to an outcome, people may change features that the model rewards.
 
@@ -53,13 +53,18 @@ Python, NumPy, scikit-learn, reproducible simulation and data visualisation.
 
 ## Other selected projects
 
-- [Rhine-Main Heat Risk Forecasting](https://github.com/MUmairSarwar/germany-heat-risk-forecasting)
+- [Fair Multi-Agent Battery Control (MARL)](https://github.com/MUmairSarwar/fair-multiagent-battery-control)
 - [Robust Federated Learning](https://github.com/MUmairSarwar/robust-federated-learning-ml-security)
+- [Rhine-Main Heat Risk Forecasting](https://github.com/MUmairSarwar/germany-heat-risk-forecasting)
+- [German Energy Operations Analytics](https://github.com/MUmairSarwar/german-energy-operations)
 - [Retail Customer & Operations Analytics](https://github.com/MUmairSarwar/retail-customer-analytics)
-- [Telecom Customer Churn Prediction](https://github.com/MUmairSarwar/customer-churn-prediction)
 
 ## Author
 
 **Muhammad Umair Sarwar**  
 M.Sc. Mathematics student (Mathematics in Data Science), TU Darmstadt.  
-Open to PhD positions and full-time roles.
+Open to Werkstudent and data science roles in Germany, and to funded PhD positions.
+
+## Licence
+
+MIT, see [LICENSE](LICENSE).
