@@ -8,6 +8,17 @@ A small, reproducible experiment showing why predictive models cannot always tre
 
 ![Experiment overview](reports/figures/strategic_classification.svg)
 
+
+## Data period and version history
+
+The experiment generates synthetic features and labels; it has no real-world observation-year coverage.
+
+- **February 2026:** the initial simulation was committed.
+- **August 2026:** the response model was revised to individual affordable changes, with sensitivity analysis, tests and recorded outputs.
+- **October 2026:** author details, repository links and licensing were updated.
+
+The current reported metrics belong to the revised experiment. Original development, substantive revisions and documentation maintenance are distinct phases.
+
 ## Question
 
 How does an unchanged logistic-regression model perform after rejected individuals can modify one feature to cross its decision boundary?
