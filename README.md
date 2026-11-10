@@ -17,7 +17,7 @@ The experiment generates synthetic features and labels; it has no real-world obs
 - **August 2026:** the response model was revised to individual affordable changes, with sensitivity analysis, tests and recorded outputs.
 - **October 2026:** author details, repository links and licensing were updated.
 
-The current reported metrics belong to the revised experiment. Original development, substantive revisions and documentation maintenance are distinct phases.
+The numbers below come from the August 2026 version of the experiment.
 
 ## Question
 
