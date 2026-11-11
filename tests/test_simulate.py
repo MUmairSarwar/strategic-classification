@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 
-from src.simulate import evaluate, make_data, strategic_response
+from src.simulate import evaluate, make_data, run_experiment, strategic_response
 
 
 def test_make_data_is_reproducible():
@@ -25,3 +25,9 @@ def test_evaluation_metrics_are_bounded():
     model = LogisticRegression(max_iter=1_000).fit(features, target)
     metrics = evaluate(model, features, target)
     assert all(0.0 <= value <= 1.0 for value in metrics.values())
+
+
+def test_no_strategic_responses_has_no_mean_delta():
+    metrics, *_ = run_experiment(cost_per_unit=float("inf"))
+    assert metrics["manipulation_rate"] == 0.0
+    assert metrics["mean_delta_among_manipulators"] is None

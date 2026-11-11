@@ -2,7 +2,7 @@
 
 [![tests](https://github.com/MUmairSarwar/strategic-classification/actions/workflows/tests.yml/badge.svg)](https://github.com/MUmairSarwar/strategic-classification/actions/workflows/tests.yml)
 
-When a classifier decides who gets accepted, people who know the rule may change the features it rewards. This small simulation measures what happens to a fixed logistic-regression model when rejected individuals can raise one feature just enough to cross the decision boundary, without their true label changing.
+I built a synthetic simulation to measure how a fixed logistic-regression model responds when rejected individuals can raise one feature to cross the decision boundary. I implemented the individual best response and measured the change in holdout performance and sensitivity to the cost of changing that feature.
 
 ![Experiment overview](reports/figures/strategic_classification.svg)
 
@@ -61,7 +61,7 @@ The code is a single module, [`src/simulate.py`](src/simulate.py). The tests che
 
 ## History
 
-I worked on the first version from January to April 2026; it was first committed in February 2026. In August 2026 I replaced it with the individual best-response model above and added the sensitivity plot, tests and recorded outputs. The results come from the August version.
+The [initial simulation](https://github.com/MUmairSarwar/strategic-classification/commit/66103c3) was committed on 6 February 2026. In August 2026 I implemented the individual best-response model and added the sensitivity plot, tests and recorded outputs. The results above come from that version. The data is generated from a fixed seed in the simulation, so there is no external dataset.
 
 ## Author
 

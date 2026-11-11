@@ -74,6 +74,7 @@ def run_experiment(cost_per_unit: float = 0.4) -> tuple[dict, LogisticRegression
     baseline = evaluate(model, x_test, y_test)
     strategic_features, deltas = strategic_response(x_test, model, cost_per_unit=cost_per_unit)
     strategic = evaluate(model, strategic_features, y_test)
+    responses = deltas[deltas > 0]
     metrics = {
         "sample_size": len(features),
         "test_size": len(x_test),
@@ -82,8 +83,8 @@ def run_experiment(cost_per_unit: float = 0.4) -> tuple[dict, LogisticRegression
         "max_delta": 2.0,
         "baseline": baseline,
         "strategic": strategic,
-        "manipulation_rate": float((deltas > 0).mean()),
-        "mean_delta_among_manipulators": float(deltas[deltas > 0].mean()),
+        "manipulation_rate": len(responses) / len(deltas),
+        "mean_delta_among_manipulators": float(responses.mean()) if responses.size else None,
     }
     return metrics, model, x_test, y_test, strategic_features
 
