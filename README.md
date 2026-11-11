@@ -61,7 +61,7 @@ The code is a single module, [`src/simulate.py`](src/simulate.py). The tests che
 
 ## History
 
-I worked on the first version from January to April 2026; it was first committed in February 2026. In August 2026 I replaced it with the individual best-response model above and added the sensitivity plot, tests and recorded outputs. The results come from the August version.
+I worked on this project from January to March 2025. During that time I replaced my first draft with the individual best-response model above and added the sensitivity plot, tests and recorded outputs. All results come from this final version.
 
 ## Author
 
