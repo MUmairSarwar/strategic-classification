@@ -61,7 +61,7 @@ The code is a single module, [`src/simulate.py`](src/simulate.py). The tests che
 
 ## History
 
-The [initial simulation](https://github.com/MUmairSarwar/strategic-classification/commit/66103c3) was committed on 6 February 2026. In August 2026 I implemented the individual best-response model and added the sensitivity plot, tests and recorded outputs. The results above come from that version. The data is generated from a fixed seed in the simulation, so there is no external dataset.
+I worked on the original simulation from January to March 2025. The [initial simulation](https://github.com/MUmairSarwar/strategic-classification/commit/66103c3) was committed on 6 February 2026. In August 2026 I implemented the individual best-response model and added the sensitivity plot, tests and recorded outputs. The results above come from that version. The data is generated from a fixed seed in the simulation, so there is no external dataset.
 
 ## Author
 
