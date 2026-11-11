@@ -32,15 +32,19 @@ def strategic_response(
     benefit: float = 1.0,
     max_delta: float = 2.0,
 ) -> tuple[np.ndarray, np.ndarray]:
-    """Apply an individual minimum-cost response to the model's decision rule.
+    """Move each rejected individual just across the decision boundary along x1.
 
-    A currently rejected individual changes only x1 and only when the smallest
-    change required for acceptance is affordable and below ``max_delta``.
+    The required change is ``delta = -score / w1`` (plus a small margin so the
+    new score is strictly positive). It is applied only when
+    ``delta <= max_delta`` and ``cost_per_unit * delta < benefit``. Accepted
+    individuals and x2 are left unchanged. Returns the modified features and
+    the per-individual changes.
     """
     changed = features.copy()
     deltas = np.zeros(len(features))
     weight = float(model.coef_[0, 0])
     if weight <= 0:
+        # Raising x1 cannot improve the score, so nobody responds.
         return changed, deltas
 
     scores = model.decision_function(features)

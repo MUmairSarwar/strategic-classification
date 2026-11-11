@@ -1,81 +1,70 @@
 # Strategic Classification and Behavioural Response
 
-**Project period: January 2026 – April 2026**
-
 [![tests](https://github.com/MUmairSarwar/strategic-classification/actions/workflows/tests.yml/badge.svg)](https://github.com/MUmairSarwar/strategic-classification/actions/workflows/tests.yml)
 
-A small, reproducible experiment showing why predictive models cannot always treat people as passive data points. When a scoring rule affects access to an outcome, people may change features that the model rewards.
+When a classifier decides who gets accepted, people who know the rule may change the features it rewards. This small simulation measures what happens to a fixed logistic-regression model when rejected individuals can raise one feature just enough to cross the decision boundary, without their true label changing.
 
 ![Experiment overview](reports/figures/strategic_classification.svg)
 
+## Model
 
-## Data period and version history
+Everything is synthetic, with two features so the effect can be plotted:
 
-The experiment generates synthetic features and labels; it has no real-world observation-year coverage.
+$$x_1, x_2 \sim \mathcal{N}(0, 1), \qquad P(y = 1 \mid x) = \sigma(1.2\,x_1 + 0.8\,x_2 - 0.2),$$
 
-- **February 2026:** the initial simulation was committed.
-- **August 2026:** the response model was revised to individual affordable changes, with sensitivity analysis, tests and recorded outputs.
-- **October 2026:** author details, repository links and licensing were updated.
+with $n = 2500$ and a stratified 75/25 train/test split. A logistic regression $f(x) = w^\top x + b$ is trained on the unmodified training data and accepts when $f(x) \ge 0$.
 
-The numbers below come from the August 2026 version of the experiment.
+On the test set, only $x_1$ can be changed. A rejected individual ($f(x) < 0$) needs
 
-## Question
+$$\delta = \frac{-f(x)}{w_1} + 10^{-6}$$
 
-How does an unchanged logistic-regression model perform after rejected individuals can modify one feature to cross its decision boundary?
+to reach the boundary, and makes that change only if
 
-The experiment uses two synthetic features so the mechanism remains visible:
+$$\delta \le \delta_{\max} = 2 \quad \text{and} \quad c\,\delta < B = 1,$$
 
-- `x1` can be changed at a personal cost.
-- `x2` cannot be changed.
-- A rejected individual makes only the minimum affordable change needed for acceptance.
-- The true label does not change after manipulation.
+where $c$ is the cost per unit of change and $B$ the benefit of acceptance. Accepted individuals do nothing, and nobody's label $y$ changes. This is pure gaming of the score, not real improvement. The model is not retrained after the response.
 
-This is a controlled mathematical demonstration, not a claim about a specific real-world population.
+At the default cost $c = 0.4$ the budget condition only rules out $\delta \ge 2.5$, so the cap $\delta_{\max} = 2$ is the constraint that actually binds. The cost starts to matter for $c > 0.5$, which is the range covered by the sensitivity panel in the figure ($c$ from 0.1 to 1.2).
 
-## What is measured
+## Results
 
-- Accuracy and ROC AUC before and after strategic response
-- Positive-decision rate
-- Share of individuals who manipulate
-- Mean change among manipulators
-- Sensitivity of manipulation and accuracy to the assumed cost
+Test set of 625 individuals, default cost $c = 0.4$:
 
-Measured outputs are committed in [`reports/metrics.json`](reports/metrics.json).
+| | Before response | After response |
+|---|---:|---:|
+| Accuracy | 70.4% | 50.6% |
+| ROC AUC | 0.800 | 0.773 |
+| Share accepted | 46.1% | 96.3% |
 
-At the default cost, **50.2%** of test individuals changed `x1`. The positive-decision rate increased from **46.1% to 96.3%**, while accuracy fell from **70.4% to 50.6%** and ROC AUC from **0.800 to 0.773**. These are simulated results under the stated assumptions.
+50.2% of the test individuals changed $x_1$, by 0.84 on average. Almost everyone who was rejected could reach the boundary within the cap, so the classifier ends up accepting nearly everyone and its accuracy drops towards what accepting everyone would give. ROC AUC falls less: all manipulators end up just above the boundary, so the model loses the ordering among them, but they still rank below the originally accepted individuals and above those who could not reach the boundary.
 
-## Reproduce
+These numbers follow from the assumptions above and are stored in [`reports/metrics.json`](reports/metrics.json). The cost sensitivity is only shown in the figure; it is not written to the metrics file.
+
+## Run
 
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 python -m pytest -q
-python -m src.simulate
+python -m src.simulate   # rewrites reports/metrics.json and the figure
 ```
 
-## Why it matters
+The code is a single module, [`src/simulate.py`](src/simulate.py). The tests check that data generation is reproducible, that the response only increases $x_1$ and leaves $x_2$ alone, and that the metrics are in range.
 
-Credit, admissions, hiring and platform-ranking models can change the behaviour they measure. A model that performs well on historical data may behave differently after its decision rule becomes actionable. Useful follow-up work would retrain against anticipated responses, add heterogeneous costs and evaluate fairness across groups.
+## Limitations and possible extensions
 
-## Technologies
+- Everyone has the same cost and benefit. Heterogeneous costs would let the response differ between groups, which is where fairness questions start.
+- Only one feature is manipulable and the change is pure gaming. Separating gaming from genuine improvement needs a causal model of how features affect the label.
+- The classifier does not anticipate the response. A natural next step is to train a model that expects best responses, as in the strategic-classification framework of Hardt, Megiddo, Papadimitriou and Wootters (ITCS 2016), and compare it with this naive baseline.
+- One data seed and one split are used.
 
-Python, NumPy, scikit-learn, reproducible simulation and data visualisation.
+## History
 
-## Other selected projects
-
-- [Fair Multi-Agent Battery Control (MARL)](https://github.com/MUmairSarwar/fair-multiagent-battery-control)
-- [Robust Federated Learning](https://github.com/MUmairSarwar/robust-federated-learning-ml-security)
-- [Rhine-Main Heat Risk Forecasting](https://github.com/MUmairSarwar/germany-heat-risk-forecasting)
-- [German Energy Operations Analytics](https://github.com/MUmairSarwar/german-energy-operations)
-- [Retail Customer & Operations Analytics](https://github.com/MUmairSarwar/retail-customer-analytics)
+I worked on the first version from January to April 2026; it was first committed in February 2026. In August 2026 I replaced it with the individual best-response model above and added the sensitivity plot, tests and recorded outputs. The results come from the August version.
 
 ## Author
 
-**Muhammad Umair Sarwar**  
-M.Sc. Mathematics student (Mathematics in Data Science), TU Darmstadt.  
-Open to Werkstudent and data science roles in Germany, and to funded PhD positions.
+Muhammad Umair Sarwar, M.Sc. Mathematics (Mathematics in Data Science), TU Darmstadt. Other projects are listed on my [GitHub profile](https://github.com/MUmairSarwar).
 
-## Licence
-
-MIT, see [LICENSE](LICENSE).
+Licence: MIT, see [LICENSE](LICENSE).
